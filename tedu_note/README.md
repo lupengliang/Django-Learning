@@ -1,9 +1,10 @@
-[接口调用]
-1. 首页[index]
-    /index
+##[接口调用]
+###1. 首页[index]
+    1.1 首页
+        /index
     
     
-2. 用户界面[user]
+###2. 用户界面[user]
     2.1 登录
         /user/login
     2.2 注册
@@ -12,15 +13,18 @@
         /user/logout
     
     
-3. 笔记相关[note]
+###3. 笔记相关[note]
     3.1 添加笔记
         /note/add
     3.2 更新笔记
+        /note/update
     3.3 删除笔记
+        /note/delete
     3.4 查看笔记
+        /note/all
     
     
-4. 下载功能
+###4. 下载功能
 
 
-5. 上传功能
+###5. 上传功能
