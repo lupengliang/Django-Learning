@@ -32,4 +32,24 @@ def add_note(request):
         content = request.POST['content']
 
         Note.objects.create(title=title, content=content, user_id=uid)
-        return HttpResponse('添加笔记成功')
+        return HttpResponseRedirect('/note/all')
+
+
+# 删除笔记
+def delete_note(request, id):
+    print(id)
+
+    return HttpResponse('删除成功')
+
+
+# 更新笔记
+def update_note(request):
+    pass
+
+
+# 查看笔记
+def show_note(request):
+    all_notes = Note.objects.all()
+    return render(request, 'note/all_note.html', {'all_notes': all_notes})
+
+

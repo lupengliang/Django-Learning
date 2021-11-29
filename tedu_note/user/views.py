@@ -47,7 +47,7 @@ def reg_view(request):
         request.session['uid'] = user.id
         # TODO 修改session存储时间为1天
 
-        return HttpResponseRedirect('/index')
+        return HttpResponseRedirect('/index/index')
 
 # 登录
 def login_view(request):
@@ -57,7 +57,7 @@ def login_view(request):
         # 检查页面登录状态，如果登录了，显示.已登录.
         if request.session.get('username') and request.session.get('uid'):
             # return HttpResponse('已登录')
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect('/index/index')
         # 检查Cookies
         c_username = request.COOKIES.get('username')
         c_uid = request.COOKIES.get('uid')
@@ -89,7 +89,7 @@ def login_view(request):
         request.session['uid'] = user.id
 
         # resp = HttpResponse('---登录成功---')
-        resp = HttpResponseRedirect('/index')
+        resp = HttpResponseRedirect('/index/index')
         # 判断用户是否 占选了 '记住用户名'
         if 'remember' in request.POST:
             resp.set_cookie('username', username, 3600*24*3)
@@ -106,7 +106,7 @@ def logout_view(request):
     if 'uid' in request.session:
         del request.session['uid']
 
-    resp = HttpResponseRedirect('/index')
+    resp = HttpResponseRedirect('/index/index')
     if 'username' in request.COOKIES:
         resp.delete_cookie('username')
     if 'uid' in request.COOKIES:
