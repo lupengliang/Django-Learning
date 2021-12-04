@@ -34,8 +34,8 @@
                 <td>{{ note.updated_time }}</td>
                 <td>{{ note.content }}</td>
                 <td>
-                    <a href="/note/delete/<int: {{ note.id }}>">删除</a>
-                    <a href="">更新</a>
+                    <a href="/note/update/{{ note.id }}">更新</a>
+                    <a href="/note/delete?note_id={{ note.id }}">删除</a>
                 </td>
             </tr>
         </tbody>
