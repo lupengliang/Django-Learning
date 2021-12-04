@@ -36,15 +36,37 @@ def add_note(request):
 
 
 # 删除笔记
-def delete_note(request, id):
-    print(id)
-
-    return HttpResponse('删除成功')
+def delete_note(request):
+    note_id = request.GET.get('note_id')
+    if not note_id:
+        return HttpResponse('--请求异常')
+    try:
+        note = Note.objects.get(id=note_id)
+    except Exception as e:
+        print('---delete note get error %s' % (e))
+        return HttpResponse('---The note id is error')
+    # 伪删除 － 即更新操作
+    # 这里因为数据不重要用的是真正的删除
+    note.delete()
+    return HttpResponseRedirect('/note/all')
 
 
 # 更新笔记
-def update_note(request):
-    pass
+def update_note(request, note_id):
+    try:
+        note = Note.objects.get(id=note_id)
+    except Exception as e:
+        print('--update note error is %s' % (e))
+        return HttpResponse('--The note is note existed.')
+    if request.method == 'GET':
+        return render(request, 'note/update_note.html', locals())
+    elif request.method == 'POST':
+        print('提前成功')
+        content = request.POST['content']
+        note.content = content  # 更新内容
+        note.save()  # 进行保存
+
+        return HttpResponseRedirect('/note/all')
 
 
 # 查看笔记
