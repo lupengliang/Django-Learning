@@ -11,12 +11,12 @@
 </head>
 <body>
 
-<form action="/note/update/{{ node.id }}" method="post">
+<form action="{% url 'note:update_note' note.id %}" method="post">
     <p>
         标题：<input type="text" value={{ note.title }} disabled="disabled"><input type="submit" value="保存">
     </p>
     <p>
-        备注：<textarea cols="30" rows="10" name="content" value={{ note.content }}></textarea>
+        备注：<textarea cols="30" rows="10" name="content"></textarea>
     </p>
 </form>
 

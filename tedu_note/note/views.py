@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from .models import Note
 
@@ -11,7 +12,7 @@ def check_login(fn):
             c_username = request.COOKIES.get('username')
             c_uid = request.COOKIES.get('uid')
             if not c_username or not c_uid:
-                return HttpResponseRedirect('/user/login')
+                return HttpResponseRedirect('user/login')
             else:
                 # 回写session
                 request.session['username'] = c_username
@@ -32,7 +33,7 @@ def add_note(request):
         content = request.POST['content']
 
         Note.objects.create(title=title, content=content, user_id=uid)
-        return HttpResponseRedirect('/note/all')
+        return HttpResponseRedirect(reverse('note:show_note'))
 
 
 # 删除笔记
@@ -48,7 +49,7 @@ def delete_note(request):
     # 伪删除 － 即更新操作
     # 这里因为数据不重要用的是真正的删除
     note.delete()
-    return HttpResponseRedirect('/note/all')
+    return HttpResponseRedirect(reverse('note:show_note'))  # reverse自己了解下
 
 
 # 更新笔记
@@ -66,7 +67,7 @@ def update_note(request, note_id):
         note.content = content  # 更新内容
         note.save()  # 进行保存
 
-        return HttpResponseRedirect('/note/all')
+    return HttpResponseRedirect(reverse('note:show_note'))
 
 
 # 查看笔记
