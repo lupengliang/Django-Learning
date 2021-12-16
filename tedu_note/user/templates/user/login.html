@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<form action="/user/login" method="post">
+<form action="{% url 'user:login_view' %}" method="post">
     <p>
         用户名: <input type="text" name="username">
     </p>

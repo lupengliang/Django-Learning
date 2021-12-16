@@ -12,7 +12,7 @@
 <body>
 
 
-<form action="/note/add" method="post">
+<form action="{% url 'note:add_note' %}" method="post">
     <p>
         标题：<input type="text" name="title"><input type="submit" value="保存">
     </p>

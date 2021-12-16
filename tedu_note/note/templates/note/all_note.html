@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>{{ dicss.username }}</h1>
-<a href="/note/add">新增</a>
+<a href="{% url 'note:add_note' %}">新增</a>
 <table border="2">
     <thead>
         <tr>
@@ -34,8 +34,8 @@
                 <td>{{ note.updated_time }}</td>
                 <td>{{ note.content }}</td>
                 <td>
-                    <a href="/note/update/{{ note.id }}">更新</a>
-                    <a href="/note/delete?note_id={{ note.id }}">删除</a>
+                    <a href="{% url 'note:update_note' note.id %}">更新</a>
+                    <a href="{% url 'note:delete_note' %}?note_id={{ note.id }}">删除</a>
                 </td>
             </tr>
         </tbody>
