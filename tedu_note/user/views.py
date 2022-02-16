@@ -1,5 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from .models import User
 import hashlib
 
@@ -16,8 +18,10 @@ def reg_view(request):
         return render(request, 'user/register.html')
     elif request.method == 'POST':
         username = request.POST['username']
-        password_1 = request.POST['password_1']
-        password_2 = request.POST['password_2']
+        password_1 = request.POST['password']
+        password_2 = request.POST['confirm_password']
+        user_email = request.POST['email']
+        user_phone = request.POST['phone_number']
         if password_1 != password_2:
             return HttpResponse('再次密码输入不一致')
         # 哈希算法 － 给定明文，计算出一段定长，不可逆的值；md5,sha-256
@@ -36,7 +40,7 @@ def reg_view(request):
             return HttpResponse('用户名已注册')
         # 3. 插入数据[明文处理密码]
         try:
-            user = User.objects.create(username=username, password=passwrod_m)
+            user = User.objects.create(username=username, password=passwrod_m, user_phone=user_phone, user_email=user_email)
         except Exception as e:
             # 有可能 报错 - 重复插入 [唯一索引注意并发写入问题]
             print('--create user error %s' % (e))
@@ -47,7 +51,7 @@ def reg_view(request):
         request.session['uid'] = user.id
         # TODO 修改session存储时间为1天
 
-        return HttpResponseRedirect('/index/index')
+        return HttpResponseRedirect(reverse('index:index_view'))
 
 # 登录
 def login_view(request):
@@ -106,7 +110,7 @@ def logout_view(request):
     if 'uid' in request.session:
         del request.session['uid']
 
-    resp = HttpResponseRedirect('/index/index')
+    resp = HttpResponseRedirect(reverse('user:login_view'))
     if 'username' in request.COOKIES:
         resp.delete_cookie('username')
     if 'uid' in request.COOKIES:
