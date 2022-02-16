@@ -7,6 +7,7 @@
 .idea/
 /.idea
 */__pycache__
+*/migrations/*
 
 # 忽略缓存文件
 *.cache
