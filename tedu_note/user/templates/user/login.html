@@ -1,31 +1,45 @@
+{% load static from staticfiles %}
 <!DOCTYPE html>
+<!-- saved from url=(0051)https://www.jq22.com/demo/jquery-Sharelink20151012/ -->
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>登录</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>云笔记登录</title>
+    <link rel="stylesheet" href="{% static 'plugins/login/style.css' %}">
 </head>
-<body>
+<body rlt="1" style="">
+<div class="login-container">
+    <h1>妙笔生花</h1>
+    <div class="connect">
+        <p>有时候，你得先学会跑，再学会走.</p>
+    </div>
+    <form action="{% url 'user:login_view' %}" method="post" id="loginForm" novalidate="novalidate">
+        {% csrf_token %}
+        <div>
+            <input type="text" name="username" class="username" placeholder="用户名" autocomplete="off">
+        </div>
+        <div>
+            <input type="password" name="password" class="password" placeholder="密码" oncontextmenu="return false"
+                   onpaste="return false">
+        </div>
+        <button id="submit" type="submit">登 录</button>
+        <span style="color: red;font-size:12px">{{ error }}</span>
+    </form>
+    <a href="{% url 'user:reg_view' %}">
+        <button type="button" class="register-tis">还有没有账号？</button>
+    </a>
+</div>
 
-<form action="{% url 'user:login_view' %}" method="post">
-    <p>
-        用户名: <input type="text" name="username">
-    </p>
-    <p>
-        密码: <input type="text" name="password">
-    </p>
-    <p>
-        <input type="checkbox" name="remember"> 记住用户名
-    </p>
-    <p>
-        <input type="submit" value="登录">
-    </p>
-</form>
+<script src="{% static 'plugins/login/hm.js' %}"></script>
+<script src="{% static 'plugins/login/jquery.min.js' %}"></script>
+<script src="{% static 'plugins/login/jquery.min.js(1)' %}"></script>
+<script src="{% static 'plugins/login/common.js' %}"></script>
 
+<script src="{% static 'plugins/login/supersized.3.2.7.min.js' %}"></script>
+<script src="{% static 'plugins/login/supersized-init.js' %}"></script>
 
+<script src="{% static 'plugins/login/jquery.validate.min.js' %}"></script>
+<div id="mmq" style="display:none;"></div>
 </body>
 </html>
