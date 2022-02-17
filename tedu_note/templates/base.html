@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Starter</title>
+    <title>云笔记系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -64,7 +64,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
+            <span class="logo-lg"><b>云笔记</b>首页</span>
         </a>
 
         <!-- Header Navbar -->
@@ -215,7 +215,7 @@ desired effect
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{% url 'user:logout_view' %}" class="btn btn-default btn-flat">退 出</a>
                                 </div>
                             </li>
                         </ul>
@@ -263,13 +263,15 @@ desired effect
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-file"></i> <span>笔记管理</span><span class="pull-right-container"><i
+                    <a href="#"><i class="fa fa-pencil-square"></i> <span>笔记管理</span><span class="pull-right-container"><i
                             class="fa fa-angle-left pull-right"></i></span></a>
                     <ul class="treeview-menu">
                         <li><a href="#"><i class="fa fa-file-text"></i><span></span>我的笔记</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
-                        <li><a href="#">笔记列表</a></li>
+                            <li><a href="#"><i class="fa fa-file"></i><span></span>笔记列表</a><span
+                                class="pull-right-container"><i
+                                class="fa fa-angle-left pull-right"></i></span></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -285,41 +287,41 @@ desired effect
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-star-half-full"></i> <span>资源管理</span><span
+                    <a href="#"><i class="fa fa-cloud-upload"></i> <span>资源管理</span><span
                             class="pull-right-container"><i
                             class="fa fa-angle-left pull-right"></i></span></a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用户列表</a><span
+                        <li><a href="#"><i class="fa fa-share-alt-square"></i><span></span>我的分享</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用户列表</a><span
-                                class="pull-right-container"><i
-                                class="fa fa-angle-left pull-right"></i></span></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-gift"></i> <span>兴趣爱好</span><span class="pull-right-container"><i
-                            class="fa fa-angle-left pull-right"></i></span></a>
-                    <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用户列表</a><span
-                                class="pull-right-container"><i
-                                class="fa fa-angle-left pull-right"></i></span></li>
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用户列表</a><span
+                        <li><a href="#"><i class="fa fa-star"></i><span></span>收藏博客</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-navicon"></i> <span>用例管理</span><span class="pull-right-container"><i
+                    <a href="#"><i class="fa fa-simplybuilt"></i> <span>兴趣管理</span><span class="pull-right-container"><i
                             class="fa fa-angle-left pull-right"></i></span></a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用例仓库</a><span
+                        <li><a href="#"><i class="fa fa-street-view"></i><span></span>我的兴趣</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用例计划</a><span
+                        <li><a href="#"><i class="fa fa-universal-access"></i><span></span>兴趣总览</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>统计分析</a><span
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-th-list"></i> <span>用例管理</span><span class="pull-right-container"><i
+                            class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-cubes"></i><span></span>用例仓库</a><span
+                                class="pull-right-container"><i
+                                class="fa fa-angle-left pull-right"></i></span></li>
+                        <li><a href="#"><i class="fa fa-paper-plane"></i><span></span>用例计划</a><span
+                                class="pull-right-container"><i
+                                class="fa fa-angle-left pull-right"></i></span></li>
+                        <li><a href="#"><i class="fa fa-line-chart"></i><span></span>统计分析</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
                     </ul>
