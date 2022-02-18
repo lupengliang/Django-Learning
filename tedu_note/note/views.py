@@ -31,8 +31,9 @@ def add_note(request):
         uid = request.session['uid']
         title = request.POST['title']
         content = request.POST['content']
+        link = request.POST['link']
 
-        Note.objects.create(title=title, content=content, user_id=uid)
+        Note.objects.create(title=title, content=content, user_id=uid, link=link)
         return HttpResponseRedirect(reverse('note:show_note'))
 
 
@@ -64,7 +65,9 @@ def update_note(request, note_id):
     elif request.method == 'POST':
         print('提前成功')
         content = request.POST['content']
+        link = request.POST['link']
         note.content = content  # 更新内容
+        note.link = link  # 更新内容
         note.save()  # 进行保存
 
     return HttpResponseRedirect(reverse('note:show_note'))
