@@ -8,18 +8,35 @@
         /index/index
     
     
-<div>
+<div>p
     2. 用户界面 [user]
 </div>
 
     2.1 登录
-        /user/login
+        /login
         
     2.2 注册
-        /user/reg
+        /reg
      
     2.3 退出
-        /user/logout
+        /logout
+    
+    -----------------------------------
+    2.4 用户列表
+        /all/[num]
+        
+    2.5 添加用户
+        /add/
+    
+    2.6 更新用户
+        /update/[num]
+        
+    2.7 删除用户
+        /delete/
+       
+    2.8 用户详情页
+        /detail/[num]
+       
     
     
 <div>
