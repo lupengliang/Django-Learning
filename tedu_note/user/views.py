@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from .models import User
 import hashlib
@@ -15,7 +16,7 @@ def reg_view(request):
     # 2.当前用户名是否可用
     # 3.插入数据 [明文处理密码]
     if request.method == 'GET':
-        return render(request, 'user/register.html')
+        return render(request, 'login/register.html')
     elif request.method == 'POST':
         username = request.POST['username']
         password_1 = request.POST['password']
@@ -71,7 +72,7 @@ def login_view(request):
             request.session['uid'] = c_uid
             # return HttpResponse('已登录')
             return HttpResponseRedirect('/index')
-        return render(request, 'user/login.html')
+        return render(request, 'login/login.html')
     elif request.method == 'POST':
         # 处理数据
         username = request.POST['username']
@@ -116,3 +117,81 @@ def logout_view(request):
     if 'uid' in request.COOKIES:
         resp.delete_cookie('uid')
     return resp
+
+
+def show_user(request, pIndex=1):
+    """用户展示列表"""
+    ulist = User.objects.all()
+    pIndex = int(pIndex)
+
+    # 执行分页处理
+    page = Paginator(ulist, 10)  # 每页分页10条数据
+    maxpages = page.num_pages
+
+    # 判断当前页是否起越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < maxpages:
+        pIndex = 1
+
+    list2 = page.page(pIndex)  # 获取当前页的数据
+    plist = page.page_range  # 获取页码信息列表
+
+    context = {"userlist": list2, "plist": plist, "pIndex": pIndex, "maxpages": maxpages}
+    return render(request, "user/all_user.html", context)
+
+
+def add_user(request):
+    """添加用户"""
+    if request.method == 'GET':
+        return render(request, "user/add_user.html")
+    elif request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password_1']
+        user_email = request.POST['email']
+        user_phone = request.POST['phone']
+        User.objects.create(username=username, password=password, user_email=user_email, user_phone=user_phone)
+        return HttpResponseRedirect(reverse('user:show_user', args=(1,)))
+
+def update_user(request, user_id):
+    """更新用户"""
+    try:
+        user = User.objects.get(id=user_id)
+    except Exception as e:
+        print("--update the user information is error %s" % e)
+        return HttpResponse("The user is not exist...")
+    if request.method == "GET":
+        return render(request, "user/update_user.html", locals())
+    elif request.method == "POST":
+        print("你就说成功了没有 ")
+
+        password = request.POST["password_1"]
+        user_phone = request.POST["phone"]
+        user_email = request.POST["email"]
+        user.user_phone = user_phone
+        user.user_email = user_email
+        user.password = password
+        user.save()
+        return HttpResponseRedirect(reverse('user:show_user', args=(1,)))
+
+def delete_user(request):
+    """删除用户"""
+    user_id = request.GET['user_id']
+    try:
+        user = User.objects.get(id=user_id)
+    except Exception as e:
+        print("不存在当前用户")
+        return HttpResponse("The user is not exist. %s" % (e))
+    user.status = 2
+    user.save()
+    return HttpResponseRedirect(reverse('user:show_user', args=(1,)))
+
+def detail_user(request, user_id):
+    """用户详情"""
+    try:
+        user = User.objects.get(id=user_id)
+    except Exception as e:
+        print('error error error %s' % (e))
+        return HttpResponse("no user exist")
+    if request.method == "GET":
+        return render(request, "user/detail_user.html", locals())
