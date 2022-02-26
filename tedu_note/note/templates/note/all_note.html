@@ -10,10 +10,12 @@
 
 
 {% block content %}
-    <a href="{% url 'note:add_note' %}" class="col-md-offset-11">新增</a>
+    <div class="col-lg-offset-11 col-lg-1">
+        <button class="btn btn-success"><a href="{% url 'note:add_note' %}" style="color: white">新增</a></button>
+    </div>
     <table class="table table-condensed">
         <thead>
-        <tr style="background-color: #c0c0c0">
+        <tr class="info">
             <th>编号</th>
             <th>标题</th>
             <th>链接</th>
@@ -31,12 +33,12 @@
                     <td>{{ note.title }}</td>
                     <td>{{ note.link }}</td>
                     <td>{{ note.user.username }}</td>
-                    <td>{{ note.created_time }}</td>
-                    <td>{{ note.updated_time }}</td>
+                    <td>{{ note.created_time|date:'Y-m-d H:i:s' }}</td>
+                    <td>{{ note.updated_time|date:'Y-m-d H:i:s' }}</td>
                     <td>{{ note.content }}</td>
                     <td>
-                        <a href="{% url 'note:update_note' note.id %}">更新</a>
-                        <a href="{% url 'note:delete_note' %}?note_id={{ note.id }}">删除</a>
+                        <button class="btn btn-info btn-xs"><a href="{% url 'note:update_note' note.id %}" style="color: white">更新</a></button>
+                        <button class="btn btn-danger btn-xs"><a href="{% url 'note:delete_note' %}?note_id={{ note.id }}" style="color: white">删除</a></button>
                     </td>
                 </tr>
             </tbody>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    <h1>
+        用户展示:
+        <small>山重水复疑无路，柳暗花明又一村。</small>
+    </h1>
+{% endblock title %}
+
+
+{% block content %}
+    <div class="col-md-2 col-md-offset-10">
+        <button class="btn btn-primary pull-right"><a href="{% url 'user:add_user' %}" style="color: white">添加</a></button>
+    </div>
+    <table class="table table-hover table-striped">
+        <tr class="info">
+            <th><b>编号</b></th>
+            <th><b>用户名</b></th>
+            <th><b>状态</b></th>
+            <th><b>密码</b></th>
+            <th><b>手机</b></th>
+            <th><b>邮箱</b></th>
+            <th><b>创建时间</b></th>
+            <th><b>更新时间</b></th>
+            <th><b>操作</b></th>
+        </tr>
+        {% for user in userlist %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    {% if user.status == 1 %}
+                        <span style="color: green">正常</span>
+                    {% elif user.status == 2 %}
+                        <span style="color: orangered">删除</span>
+                    {% else %}
+                        <span style="color: gray">未知</span>
+                    {% endif %}
+                </td>
+                <td>***********</td>
+                <td>{{ user.user_phone }}</td>
+                <td>{{ user.user_email }}</td>
+                <td>{{ user.created_time|date:'Y-m-d H:i:s' }}</td>
+                <td>{{ user.updated_time|date:'Y-m-d H:i:s' }}</td>
+                <td>
+                    <button class="btn btn-success btn-xs"><a href="{% url 'user:detail_user' user.id %}" style="color: white">查看</a></button>
+                    <button class="btn btn-warning btn-xs"><a href="{% url 'user:update_user' user.id %}" style="color: white">编辑</a></button>
+                    <button class="btn btn-danger btn-xs"><a href="{% url 'user:delete_user' %}?user_id={{ user.id }}" style="color: white">删除</a></button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- 分页组件 -->
+    <div class="box-footer clearfix">
+        <a role="button" href="{% url 'user:add_user' %}" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true">添加员工</span>
+        </a>
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="{% url 'user:show_user' pIndex|add:-1 %}">&laquo;</a></li>
+            {% for p in plist %}
+                <li><a href="{% url 'user:show_user' p %}">{{ p }}</a></li>
+            {% endfor %}
+            <li><a href="{% url 'user:show_user' pIndex|add:1 %}">&raquo;</a></li>
+        </ul>
+    </div>
+{% endblock %}
