@@ -269,7 +269,7 @@ desired effect
                         <li><a href="{% url 'note:show_note' %}"><i class="fa fa-file-text"></i><span></span>我的笔记</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
-                            <li><a href="#"><i class="fa fa-file"></i><span></span>笔记列表</a><span
+                            <li><a href="{% url 'note:show_note' %}"><i class="fa fa-file"></i><span></span>笔记列表</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
                     </ul>
@@ -281,7 +281,7 @@ desired effect
                         <li><a href="#"><i class="fa fa-user"></i><span></span>我的信息</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
-                        <li><a href="#"><i class="fa fa-users"></i><span></span>用户列表</a><span
+                        <li><a href="{% url 'user:show_user' 1 %}"><i class="fa fa-users"></i><span></span>用户列表</a><span
                                 class="pull-right-container"><i
                                 class="fa fa-angle-left pull-right"></i></span></li>
                     </ul>
